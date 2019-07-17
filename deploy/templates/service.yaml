@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: ###AppNameHere
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: ####ImageURL
+            env:
+              - name: ##ENV_NAME
+                value: ##ENV_VAL
