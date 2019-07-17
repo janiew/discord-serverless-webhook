@@ -9,6 +9,6 @@ spec:
         spec:
           container:
             image: pratikmahajan/serving-video-download:prod-latest
-            env:
-              - name: ##ENV_NAME
-                value: ##ENV_VAL
+#            env:
+#              - name: ##ENV_NAME
+#                value: ##ENV_VAL
