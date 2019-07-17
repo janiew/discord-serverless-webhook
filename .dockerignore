@@ -1,0 +1,6 @@
+*.log
+.idea
+secret*
+Twitter-Knative-Serverless-App
+deploy
+Makefile
