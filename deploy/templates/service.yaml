@@ -1,14 +1,14 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: ###AppNameHere
+  name: serving-video-download
 spec:
   runLatest:
     configuration:
       revisionTemplate:
         spec:
           container:
-            image: ####ImageURL
+            image: pratikmahajan/serving-video-download:prod-latest
             env:
               - name: ##ENV_NAME
                 value: ##ENV_VAL

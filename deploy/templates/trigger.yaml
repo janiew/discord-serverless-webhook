@@ -5,9 +5,9 @@ metadata:
 spec:
   filter:
     sourceAndType:
-      type: com.twitter.dm
+      type: com.twitter.video
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1alpha1
       kind: Service
-      name: ###AppNameHere
+      name: serving-video-download

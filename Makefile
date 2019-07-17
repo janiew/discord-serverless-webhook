@@ -3,12 +3,12 @@
 	docker-run
 
 DOCKER_TAG_VERSION ?= staging-latest
-DOCKER_TAG_C ?= pratikmahajan/twitter-stream-serving:${DOCKER_TAG_VERSION}
+DOCKER_TAG_C ?= pratikmahajan/serving-video-download:${DOCKER_TAG_VERSION}
 
 
 NAMESPACE ?= dev2-app
-POD ?= staging-twitter-serving
-PROD_POD ?= prod-twitter-serving
+POD ?= staging-serving-video-download
+PROD_POD ?= prod-serving-video-download
 
 
 
