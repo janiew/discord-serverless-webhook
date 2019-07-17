@@ -13,3 +13,8 @@
 
 #GoLand
 .idea
+*.log
+
+#secrets
+secret*
+!secret.yaml.example
