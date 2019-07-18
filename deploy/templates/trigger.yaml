@@ -5,7 +5,7 @@ metadata:
 spec:
   filter:
     sourceAndType:
-      type: com.twitter.video
+      type: com.twitter
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1alpha1

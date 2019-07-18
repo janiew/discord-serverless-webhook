@@ -6,7 +6,7 @@ DOCKER_TAG_VERSION ?= staging-latest
 DOCKER_TAG_C ?= pratikmahajan/serving-video-download:${DOCKER_TAG_VERSION}
 
 
-NAMESPACE ?= dev2-app
+NAMESPACE ?= test-app
 POD ?= staging-serving-video-download
 PROD_POD ?= prod-serving-video-download
 

@@ -14,7 +14,7 @@ import (
 
 func main() {
 
-	port, err := strconv.Atoi(config.mustGetEnv("PORT", "8080"))
+	port, err := strconv.Atoi(config.MustGetEnvVar("PORT", "8080"))
 	if err != nil {
 		log.Fatalf("failed to parse port, %s", err.Error())
 	}
