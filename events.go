@@ -20,7 +20,7 @@ var (
 	consumerSecret = strings.TrimSpace(config.MustGetEnvVar("T_CONSUMER_SECRET", ""))
 	accessToken    = strings.TrimSpace(config.MustGetEnvVar("T_ACCESS_TOKEN", ""))
 	accessSecret   = strings.TrimSpace(config.MustGetEnvVar("T_ACCESS_SECRET", ""))
-
+	selfHandle     = strings.TrimSpace(config.MustGetEnvVar("SELF_HANDLE",""))
 )
 
 
@@ -70,9 +70,8 @@ func (r *eventReceiver) Receive(ctx context.Context, event ce.Event, resp *ce.Ev
 		ScreenName string `json:"screen_name"`
 	}
 
+
 	// convert to json
-
-
 	var userData userJson
 	err =json.Unmarshal(datajson, &userData)
 	if err != nil {
@@ -81,19 +80,24 @@ func (r *eventReceiver) Receive(ctx context.Context, event ce.Event, resp *ce.Ev
 
 	userHandle := userData.ScreenName
 
+	if selfHandle != strings.ToLower(userHandle) {
+
+		// Setting up the Reply params
+		params := &twitter.StatusUpdateParams{
+			InReplyToStatusID: tIDINT,
+		}
+
+		// Composing tweet Data
+		tweetData := "Check This Out " + "twitter.com/" + userHandle + "/status/" + string(tID)
 
 
-	// Setting up the Reply params
-	params := &twitter.StatusUpdateParams{
-		InReplyToStatusID : tIDINT,
+		// Sending Tweet
+		_, _, errStatus := twClient.Statuses.Update(tweetData, params)
+		if errStatus != nil {
+			log.Printf("failed to send Tweet : %s", errStatus.Error())
+		}
 	}
 
-	tweetData := "Check This Out "+"twitter.com/"+userHandle+"/status/"+string(tID)
-
-	_, _, errStatus := twClient.Statuses.Update(tweetData, params)
-	if errStatus!=nil{
-		log.Printf("failed to send Tweet : %s", errStatus.Error())
-	}
 
 	re := &ce.EventResponse{
 		Status:  200,

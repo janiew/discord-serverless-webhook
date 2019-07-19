@@ -8,7 +8,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: pratikmahajan/serving-video-download:dev3
+            image: pratikmahajan/serving-video-download:dev5
             env:
               - name: T_CONSUMER_KEY
                 valueFrom:
