@@ -2,8 +2,11 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
+	"strconv"
 	"strings"
 
 	"github.com/PratikMahajan/Twitter-Serverless-Serving/config"
@@ -17,6 +20,7 @@ var (
 	consumerSecret = strings.TrimSpace(config.MustGetEnvVar("T_CONSUMER_SECRET", ""))
 	accessToken    = strings.TrimSpace(config.MustGetEnvVar("T_ACCESS_TOKEN", ""))
 	accessSecret   = strings.TrimSpace(config.MustGetEnvVar("T_ACCESS_SECRET", ""))
+	selfHandle     = strings.TrimSpace(config.MustGetEnvVar("SELF_HANDLE",""))
 )
 
 
@@ -38,18 +42,62 @@ func (r *eventReceiver) Receive(ctx context.Context, event ce.Event, resp *ce.Ev
 		return errors.New("invalid event format")
 	}
 
-
 	var tdata map[string]interface{}
 	if err := event.DataAs(&tdata); err != nil {
 		log.Printf("Failed to DataAs: %s", err.Error())
 		return err
 	}
 
-	tweet, _, err := twClient.Statuses.Update("just setting up my twttr", nil)
-	if err!=nil{
-		log.Printf("failed to send Tweet : %s", err.Error())
+
+
+	// Get Tweet ID
+	tID := fmt.Sprintf("%v", tdata["id_str"])
+
+	tIDINT, err := strconv.ParseInt(tID, 10, 64)
+	if err != nil {
+		log.Printf("Unable to get tweet id: %s", err.Error())
 	}
-	log.Printf("sent tweet: %s\n", tweet.IDStr)
+
+
+	// Get User Twitter Handle
+
+	datajson, err := json.Marshal(tdata["user"])
+	if err != nil {
+		log.Printf("Unable to get user json: %s", err.Error())
+	}
+
+	type userJson struct{
+		ScreenName string `json:"screen_name"`
+	}
+
+
+	// convert to json
+	var userData userJson
+	err =json.Unmarshal(datajson, &userData)
+	if err != nil {
+		log.Printf("json unmarshal failed: %s", err.Error())
+	}
+
+	userHandle := userData.ScreenName
+
+	if selfHandle != strings.ToLower(userHandle) {
+
+		// Setting up the Reply params
+		params := &twitter.StatusUpdateParams{
+			InReplyToStatusID: tIDINT,
+		}
+
+		// Composing tweet Data
+		tweetData := "Check This Out " + "twitter.com/" + userHandle + "/status/" + string(tID)
+
+
+		// Sending Tweet
+		_, _, errStatus := twClient.Statuses.Update(tweetData, params)
+		if errStatus != nil {
+			log.Printf("failed to send Tweet : %s", errStatus.Error())
+		}
+	}
+
 
 	re := &ce.EventResponse{
 		Status:  200,
