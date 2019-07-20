@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/PratikMahajan/Twitter-Serverless-Serving/config"
+	"github.com/PratikMahajan/Twitter-Knative-Serverless-Video-Download/config"
 	ce "github.com/cloudevents/sdk-go"
 )
 

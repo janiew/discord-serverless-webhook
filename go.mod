@@ -1,4 +1,4 @@
-module github.com/PratikMahajan/Twitter-Serverless-Serving
+module github.com/PratikMahajan/Twitter-Knative-Serverless-Video-Download
 
 go 1.12
 
