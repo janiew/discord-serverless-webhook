@@ -2,7 +2,7 @@
 	docker-build docker-push \
 	docker-run
 
-DOCKER_TAG_VERSION ?= dev6
+DOCKER_TAG_VERSION ?= staging-latest
 DOCKER_TAG_C ?= pratikmahajan/serving-video-download:${DOCKER_TAG_VERSION}
 
 
