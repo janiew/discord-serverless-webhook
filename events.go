@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/PratikMahajan/Twitter-Serverless-Serving/config"
+	"github.com/PratikMahajan/Twitter-Serverless-Serving/logic"
 	ce "github.com/cloudevents/sdk-go"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
@@ -87,9 +88,16 @@ func (r *eventReceiver) Receive(ctx context.Context, event ce.Event, resp *ce.Ev
 			InReplyToStatusID: tIDINT,
 		}
 
-		// Composing tweet Data
-		tweetData := "Check This Out " + "twitter.com/" + userHandle + "/status/" + string(tID)
+		// Get Video URL
+		videoUrl := logic.Extract_url(ctx, tdata["quoted_status"])
 
+		var tweetData string
+		if videoUrl != "" {
+			// Composing tweet Data
+			tweetData = "Copy and Paste URL in Browser To Download "+ videoUrl +" " + "twitter.com/" + userHandle + "/status/" + string(tID)
+		} else {
+			tweetData = "No Video Found"
+		}
 
 		// Sending Tweet
 		_, _, errStatus := twClient.Statuses.Update(tweetData, params)
