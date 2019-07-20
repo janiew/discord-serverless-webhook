@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/PratikMahajan/Twitter-Serverless-Serving/config"
-	"github.com/PratikMahajan/Twitter-Serverless-Serving/logic"
+	"github.com/PratikMahajan/Twitter-Knative-Serverless-Video-Download/config"
+	"github.com/PratikMahajan/Twitter-Knative-Serverless-Video-Download/logic"
 	ce "github.com/cloudevents/sdk-go"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
