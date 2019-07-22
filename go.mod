@@ -7,5 +7,4 @@ require (
 	github.com/dghubble/go-twitter v0.0.0-20190711044719-dc9b50841e5b
 	github.com/dghubble/oauth1 v0.6.0
 	github.com/gogo/protobuf v1.2.0 // indirect
-	github.com/knative/pkg v0.0.0-20190719141030-e4bc08cc8ded
 )
