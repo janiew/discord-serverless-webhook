@@ -3,7 +3,7 @@
 	docker-run
 
 DOCKER_TAG_VERSION ?= staging-latest
-DOCKER_TAG_C ?= pratikmahajan/serving-video-download:${DOCKER_TAG_VERSION}
+DOCKER_TAG_C ?= janiew/discord-serverless-webhook:${DOCKER_TAG_VERSION}
 
 
 NAMESPACE ?= test-app

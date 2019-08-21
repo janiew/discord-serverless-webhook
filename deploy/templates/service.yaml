@@ -8,7 +8,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: pratikmahajan/serving-video-download:prod-latest
+            image: janiew/discord-serverless-webhook:prod-latest
             env:
               - name: T_CONSUMER_KEY
                 valueFrom:
